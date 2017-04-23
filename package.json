@@ -4,7 +4,10 @@
   "description": "``` // generator function *gen() { \tconst file1 = yield readFile('./file1.json', 'utf8') \tconst file2 = yield readFile('./file2.json', 'utf8') \tconsole.log(file1, file2) } ```",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "callback": "node callbakc.js",
+    "promise": "node promise.js",
+    "thunk": "node thunk.js",
+    "async": "node async.js"
   },
   "repository": {
     "type": "git",

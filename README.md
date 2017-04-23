@@ -40,8 +40,7 @@ function *gen() {
 		const next = (result) => {
 			if(result.done) return result.value
 			result.value((error, data) => {
-				it.next(data)
-				next()
+				next(it.next(data))
 			})
 		}
 		next(it.next())
@@ -81,8 +80,7 @@ function *gen() {
 		const next = (result) => {
 			if(result.done) return result.value
 			result.value.then((data) => {
-				it.next(data)
-				next()
+				next(it.next(data))
 			})
 		}
 		next(it.next())
