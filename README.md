@@ -101,7 +101,27 @@ function *gen() {
 ### something about async
 1. return value 
 
-	async函数的返回值是一个promise
+	async函数的返回值是一个promise，如果没有返回值，默认返回一个resolved的promise，如果有返回值，那个值作为resolved的值，如果在async函数中抛错，那么就会返回rejected的promise
+
+	```js
+	// wait ms milliseconds
+	function wait(ms) {
+		return new Promise(r => setTimeout(r, ms));
+	}
+	async function hello() {
+		await wait(500);
+		return 'world';
+	}
+	hello().then(val => console.log(val)) // val will be 'world'
+	```
+
+	```js
+	async function foo() {
+		await wait(500);
+		throw Error('bar');
+	}
+	foo().catch(err => console.log(err)) // err will be 'bar'
+	```
 
 2. syntax
 
