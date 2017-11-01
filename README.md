@@ -9,6 +9,34 @@ function *gen() {
 }
 ```
 
+## Why generator
+要理解为什么generator能解决异步的关键，很重要的一点是理解迭代器模式，迭代器模式中的迭代器根据调用的方式可以分为两种，内部迭代器和外部迭代器，内部迭代器就是`Array.ptototype.forEach`，即内部定义好了迭代的过程。而外部迭代器需要显式的迭代下一个元素，即需要手动调用`next()`方法
+
+```js
+// 外部迭代器(需要手动迭代)
+const iterator = function (obj) {
+	let current = -1
+	const __isDone = () => current >= obj.length
+	const __getCurrentItem = () => obj[current]
+	const next = () => {
+		current += 1
+		return {
+			value: __getCurrentItem(),
+			done: __isDone()
+		}
+	}
+	return {
+		next
+	}
+}
+const i = iterator([...'一二'])
+i.next() // { value: '一', done: false }
+i.next() // { value: '二', done: false }
+i.next() // { value: undefined, done: true }
+```
+
+那么generator之所以能解决的异步，关键在于利用外部迭代器的手动迭代，就能在异步动作完成的时候才去调用next()进行下一步，那么异步动作完成后的通知方式有两种，callback和promise
+
 ## 异步的解决方案
 1. 使用callback
 2. 包装成promise形式
